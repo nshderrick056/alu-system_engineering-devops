@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Update package lists
+sudo apt-get update -y
+
+# Install Nginx silently
+sudo apt-get install nginx -y
+
+# Create simple HTML page with required string
+echo "<html><head></head><body>Holberton School for the win!</body></html>" > /var/www/html/index.html
+
+# Restart nginx using service (not systemctl)
+sudo service nginx restart
