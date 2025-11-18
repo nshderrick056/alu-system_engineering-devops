@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Script to configure a custom 404 error page in Nginx
 
-# Exit immediately on error
 set -e
 
 # Install nginx if not installed
@@ -10,29 +9,20 @@ if ! command -v nginx >/dev/null 2>&1; then
     apt-get install nginx -y
 fi
 
-# Create custom 404 page in nginx root
-echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
+# Create custom 404 page
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+chmod 644 /var/www/html/404.html
 
-# Ensure correct permissions
-chmod 644 /var/www/html/custom_404.html
-
-# Path to Nginx config
+# Path to config
 CONFIG="/etc/nginx/sites-available/default"
 
-# Add error_page directive only if it doesn't exist
-if ! grep -q "error_page 404 /custom_404.html;" "$CONFIG"; then
-    awk '
-    /server {/ { print; in_server=1; next }
-    in_server && /\}/ && !done {
-        print "    error_page 404 /custom_404.html;";
-        done=1
-    }
-    { print }
-    ' "$CONFIG" > /tmp/default && mv /tmp/default "$CONFIG"
+# Add custom error directive if missing
+if ! grep -q "error_page 404 /404.html;" "$CONFIG"; then
+    sed -i "/server_name _;/a \    error_page 404 /404.html;" "$CONFIG"
 fi
 
-# Reload Nginx
+# Reload nginx
 service nginx restart
 
-# Output required expected result
-printf "404"
+# Required output
+echo "404"
