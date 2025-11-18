@@ -21,7 +21,7 @@ if ! grep -q "location /redirect_me" "$CONFIG"; then
     /server {/ { print; found=1; next }
     found && /\}/ && !done { 
         print "    location /redirect_me {";
-        print "        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;";
+        print "        return 301 https://www.youtube.com/watch?v=OHhSTiJibV0;";
         print "    }";
         done=1 
     }
