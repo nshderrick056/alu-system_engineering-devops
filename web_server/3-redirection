@@ -9,7 +9,7 @@ apt-get update -y
 apt-get install nginx -y
 
 # Add a custom homepage
-echo "Holberton School for the win!" > /var/www/html/index.html
+echo "Holberton School" > /var/www/html/index.html
 
 # Insert redirection block safely using tee and HEREDOC
 CONFIG="/etc/nginx/sites-available/default"
