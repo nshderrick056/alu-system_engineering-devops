@@ -1,5 +1,4 @@
 onfigures a new Ubuntu server with Nginx and sets a custom HTTP header
-
 # Ignore shellcheck SC2154
 # shellcheck disable=SC2154
 
